@@ -13,25 +13,33 @@ async function loadHomeworkData() {
   try {
     const response = await fetch('homework-data.json');
     if (response.ok) {
-      homeworkData = await response.json();
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        homeworkData = data;
+      } else {
+        homeworkData = [];
+      }
+    } else {
+      homeworkData = [];
     }
   } catch (err) {
-    console.warn('ไม่พบไฟล์ homework-data.json หรือเกิดข้อผิดพลาด');
+    homeworkData = [];
   }
   renderHomework();
 }
 
 function renderHomework() {
   homeworkList.innerHTML = '';
+  if (!Array.isArray(homeworkData)) homeworkData = [];
   const fragment = document.createDocumentFragment();
   homeworkData.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      <img src="${item.image}" alt="homework image">
-      <h3>${item.title}</h3>
-      <p>${item.description}</p>
-      <small>ส่งภายใน: ${item.dueDate}</small>
+      <img src="${item.image || ''}" alt="homework image">
+      <h3>${item.title || ''}</h3>
+      <p>${item.description || ''}</p>
+      <small>ส่งภายใน: ${item.dueDate || ''}</small>
     `;
     fragment.appendChild(card);
   });
@@ -62,7 +70,7 @@ homeworkForm.addEventListener('submit', (e) => {
       title,
       description,
       dueDate,
-      image: event.target.result // Data URL base64
+      image: event.target.result
     };
 
     homeworkData.push(newHomework);
@@ -85,6 +93,7 @@ downloadBtn.addEventListener('click', () => {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 });
 
 uploadBtn.addEventListener('click', () => {
@@ -93,6 +102,7 @@ uploadBtn.addEventListener('click', () => {
 
 uploadFile.addEventListener('change', (event) => {
   const file = event.target.files[0];
+  if (!file) return;
   const reader = new FileReader();
 
   reader.onload = function(e) {
