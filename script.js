@@ -9,23 +9,22 @@ const uploadFile = document.getElementById('uploadFile');
 
 let homeworkData = [];
 
-async function loadHomeworkData() {
-  try {
-    const response = await fetch('homework-data.json');
-    if (response.ok) {
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        homeworkData = data;
-      } else {
-        homeworkData = [];
+function saveToLocal() {
+  localStorage.setItem('homeworkData', JSON.stringify(homeworkData));
+}
+
+function loadFromLocal() {
+  const data = localStorage.getItem('homeworkData');
+  if (data) {
+    try {
+      const parsed = JSON.parse(data);
+      if (Array.isArray(parsed)) {
+        homeworkData = parsed;
       }
-    } else {
+    } catch (e) {
       homeworkData = [];
     }
-  } catch (err) {
-    homeworkData = [];
   }
-  renderHomework();
 }
 
 function renderHomework() {
@@ -44,6 +43,7 @@ function renderHomework() {
     fragment.appendChild(card);
   });
   homeworkList.appendChild(fragment);
+  saveToLocal();
 }
 
 addBtn.addEventListener('click', () => {
@@ -122,4 +122,5 @@ uploadFile.addEventListener('change', (event) => {
   reader.readAsText(file);
 });
 
-loadHomeworkData();
+loadFromLocal();
+renderHomework();
