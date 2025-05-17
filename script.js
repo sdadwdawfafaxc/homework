@@ -23,6 +23,7 @@ async function loadHomeworkData() {
 
 function renderHomework() {
   homeworkList.innerHTML = '';
+  const fragment = document.createDocumentFragment();
   homeworkData.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card';
@@ -32,8 +33,9 @@ function renderHomework() {
       <p>${item.description}</p>
       <small>ส่งภายใน: ${item.dueDate}</small>
     `;
-    homeworkList.appendChild(card);
+    fragment.appendChild(card);
   });
+  homeworkList.appendChild(fragment);
 }
 
 addBtn.addEventListener('click', () => {
@@ -52,6 +54,8 @@ homeworkForm.addEventListener('submit', (e) => {
   const dueDate = document.getElementById('dueDate').value;
   const imageFile = document.getElementById('image').files[0];
 
+  if (!imageFile) return;
+
   const reader = new FileReader();
   reader.onload = function(event) {
     const newHomework = {
@@ -64,23 +68,11 @@ homeworkForm.addEventListener('submit', (e) => {
     homeworkData.push(newHomework);
     renderHomework();
 
-    // Download updated JSON file
-    const blob = new Blob([JSON.stringify(homeworkData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'homework-data.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
     modal.classList.add('hidden');
     homeworkForm.reset();
   };
 
-  if (imageFile) {
-    reader.readAsDataURL(imageFile);
-  }
+  reader.readAsDataURL(imageFile);
 });
 
 downloadBtn.addEventListener('click', () => {
