@@ -1,0 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', 'Prompt', sans-serif;
+    background: linear-gradient(135deg, #fef2f2 0%, #fecaca 50%, #f87171 100%);
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.infographic-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #fca5a5, #f87171, #ef4444);
+}
+
+.main-title {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: linear-gradient(135deg, #fca5a5, #f87171);
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+.main-title h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.main-title .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+.countdown-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.countdown-box {
+    text-align: center;
+    background: #fff;
+    color: #1f2937;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.countdown-box div:first-child {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.icon-large {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+}
+
+.music-controls {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.play-button {
+    background: linear-gradient(45deg, #fca5a5, #f87171);
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(248, 113, 113, 0.3);
+    margin-bottom: 20px;
+}
+
+.play-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(248, 113, 113, 0.4);
+}
+
+.volume-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.volume-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #f87171;
+    color: #dc2626;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.volume-btn:hover {
+    background: #f87171;
+    color: #ffffff;
+}
+
+.form-link-btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #fca5a5, #f87171);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(248, 113, 113, 0.3);
+}
+
+.form-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(248, 113, 113, 0.4);
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.side-by-side {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.countdown-card {
+    flex: 1 1 350px;
+    min-width: 300px;
+}
+
+.clock-phone {
+    flex: 0 1 300px;
+    min-width: 270px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.neumorphic-clock {
+    width: 270px;
+    height: 440px;
+    background: linear-gradient(180deg, #444 0%, #222 100%);
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 8px #fff2 inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 0;
+    margin: 24px 0;
+}
+
+.clock-date {
+    text-align: center;
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+}
+
+#clock-month {
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-left: 6px;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+.clock-face {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at 60% 40%, #333 70%, #222 100%);
+    border-radius: 50%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 8px #fff2 inset;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.clock-hand {
+    position: absolute;
+    width: 70px;
+    height: 8px;
+    background: #b39ddb;
+    border-radius: 4px;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 50%;
+    transform: rotate(-45deg) translate(-50%, -50%);
+    box-shadow: 0 2px 8px #b39ddb88;
+}
+
+.clock-time {
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.clock-time span {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.7;
+    margin-left: 8px;
+}
+
+.clock-unlock {
+    color: #bdbdbd;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+
+@media (max-width: 900px) {
+    .side-by-side {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+    .clock-phone, .countdown-card {
+        min-width: 0;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .infographic-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .main-title h1 {
+        font-size: 2rem;
+    }
+    .info-card {
+        padding: 20px;
+    }
+    .countdown-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown-container {
+        grid-template-columns: 1fr;
+    }
+}

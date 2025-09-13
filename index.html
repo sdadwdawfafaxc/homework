@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Infographic 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="infographic-container">
+        <!-- Main Title -->
+        <div class="main-title">
+            <h1>🎂 สุขสันต์วันเกิด 💖</h1>
+            <p class="subtitle">ขอให้ปีนี้เต็มไปด้วยรอยยิ้ม ความสุข และความรัก</p>
+        </div>
+
+        <!-- Countdown & Clock Side by Side -->
+        <div class="side-by-side">
+            <!-- Countdown Timer -->
+            <div class="info-card countdown-card">
+                <span class="icon-large">⏰</span>
+                <h2 style="text-align: center; margin-bottom: 20px; color: #374151;">นับถอยหลังวันเกิด</h2>
+                <h3 style="text-align: center; margin-bottom: 30px; color: #059669;">27 กันยายน</h3>
+                <div id="countdown" class="countdown-container">
+                    <div class="countdown-box">
+                        <div id="days">0</div>
+                        <div>วัน</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="hours">0</div>
+                        <div>ชั่วโมง</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="minutes">0</div>
+                        <div>นาที</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="seconds">0</div>
+                        <div>วินาที</div>
+                    </div>
+                </div>
+                <div id="birthdayMessage" style="text-align: center; font-size: 1.1rem; color: #059669; display: none;">
+                    🎉 สุขสันต์วันเกิด! 🎂
+                </div>
+                <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(167, 243, 208, 0.2); border-radius: 12px;">
+                    <div style="font-size: 0.9rem; color: #6b7280; margin-bottom: 5px;">เวลาออนไลน์ปัจจุบัน</div>
+                    <div id="currentTime" style="font-size: 1.1rem; font-weight: 600; color: #059669;"></div>
+                </div>
+            </div>
+
+            <!-- Neumorphic Clock -->
+            <div class="info-card clock-phone">
+                <div class="neumorphic-clock">
+                    <div class="clock-date">
+                        <span id="clock-day">27</span>
+                        <span id="clock-month">SEP</span>
+                    </div>
+                    <div class="clock-face">
+                        <div class="clock-hand" id="clock-hand"></div>
+                    </div>
+                    <div class="clock-time" id="clock-time">07.16 <span>AM</span></div>
+                    <div class="clock-unlock">UNLOCK</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Message -->
+        <div class="info-card" style="grid-column: 1 / -1; text-align: center; background: linear-gradient(135deg, rgba(167, 243, 208, 0.1), rgba(191, 219, 254, 0.1));">
+            <span class="icon-large">💌</span>
+            <h2 style="color: #059669; margin-bottom: 20px;">ข้อความพิเศษ</h2>
+            <p style="font-size: 1.2rem; color: #6b7280; line-height: 1.6; max-width: 600px; margin: 0 auto; margin-bottom: 30px;">
+                วันนี้เป็นวันที่พิเศษมาก เพราะเป็นวันที่คนพิเศษอย่างเธอเกิดมา 
+                ขอให้ทุกวันของเธอเต็มไปด้วยความสุข เสียงหัวเราะ และสิ่งดีๆ 
+                ที่เธอสมควรได้รับ 🌸✨
+            </p>
+            <a href="https://forms.gle/t3Jom7Pfuwqy4AWR9" target="_blank" class="form-link-btn">
+                📝 แบบฟอร์มพิเศษ
+            </a>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
