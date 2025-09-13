@@ -142,10 +142,34 @@ function updateNeumorphicClock() {
 setInterval(updateNeumorphicClock, 1000);
 updateNeumorphicClock();
 
-// Start timers
+// Lock special form button except 27 September
+function updateFormAccess() {
+    const btn = document.getElementById('specialFormBtn');
+    const lockMsg = document.getElementById('formLockMsg');
+    const now = new Date();
+    const isBirthday = now.getDate() === 27 && now.getMonth() === 8; // กันยายน = 8
+
+    if (!isBirthday) {
+        btn.classList.add('disabled');
+        btn.setAttribute('tabindex', '-1');
+        btn.setAttribute('aria-disabled', 'true');
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.5';
+        lockMsg.style.display = 'block';
+    } else {
+        btn.classList.remove('disabled');
+        btn.removeAttribute('tabindex');
+        btn.removeAttribute('aria-disabled');
+        btn.style.pointerEvents = 'auto';
+        btn.style.opacity = '1';
+        lockMsg.style.display = 'none';
+    }
+}
+
 setInterval(updateCountdown, 1000);
 setInterval(updateCurrentTime, 1000);
 window.addEventListener('load', () => {
     updateCountdown();
     updateCurrentTime();
+    updateFormAccess();
 });

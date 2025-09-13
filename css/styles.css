@@ -8,13 +8,17 @@ body {
     overflow-x: hidden;
 }
 
-.infographic-container {
+/* Layout ให้อยู่ตรงกลางและขยายเต็มจอในอุปกรณ์เล็ก */
+.infographic-container,
+.center-countdown {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     animation: fadeInUp 1s ease-out;
+    min-height: 100vh;
+    justify-content: center;
 }
 
 @keyframes fadeInUp {
@@ -22,7 +26,19 @@ body {
     to { opacity: 1; transform: translateY(0);}
 }
 
+/* Countdown card */
+.countdown-card {
+    margin: 32px auto;
+    max-width: 500px;
+    width: 100%;
+    min-width: 260px;
+}
+
+/* Special message card */
 .info-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 24px auto;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 16px;
     padding: 30px;
@@ -41,6 +57,7 @@ body {
     background: linear-gradient(90deg, #fca5a5, #f87171, #ef4444);
 }
 
+/* Main Title */
 .main-title {
     grid-column: 1 / -1;
     text-align: center;
@@ -64,6 +81,7 @@ body {
     font-weight: 400;
 }
 
+/* Countdown */
 .countdown-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -72,10 +90,11 @@ body {
 }
 
 .countdown-box {
+    min-width: 60px;
+    padding: 15px 5px;
     text-align: center;
     background: #fff;
     color: #1f2937;
-    padding: 15px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
@@ -92,53 +111,7 @@ body {
     text-align: center;
 }
 
-.music-controls {
-    text-align: center;
-    padding: 20px 0;
-}
-
-.play-button {
-    background: linear-gradient(45deg, #fca5a5, #f87171);
-    color: #ffffff;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(248, 113, 113, 0.3);
-    margin-bottom: 20px;
-}
-
-.play-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(248, 113, 113, 0.4);
-}
-
-.volume-controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.volume-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid #f87171;
-    color: #dc2626;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.volume-btn:hover {
-    background: #f87171;
-    color: #ffffff;
-}
-
+/* ปุ่มแบบฟอร์มพิเศษ */
 .form-link-btn {
     display: inline-block;
     background: linear-gradient(45deg, #fca5a5, #f87171);
@@ -159,143 +132,59 @@ body {
     color: #ffffff;
 }
 
-.side-by-side {
-    display: flex;
-    gap: 32px;
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 32px;
-}
-
-.countdown-card {
-    flex: 1 1 350px;
-    min-width: 300px;
-}
-
-.clock-phone {
-    flex: 0 1 300px;
-    min-width: 270px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: none;
-    box-shadow: none;
-    padding: 0;
-}
-
-.neumorphic-clock {
-    width: 270px;
-    height: 440px;
-    background: linear-gradient(180deg, #444 0%, #222 100%);
-    border-radius: 32px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 8px #fff2 inset;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 32px 0;
-    margin: 24px 0;
-}
-
-.clock-date {
-    text-align: center;
-    color: #fff;
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-}
-
-#clock-month {
-    font-size: 0.9rem;
-    font-weight: 400;
-    margin-left: 6px;
-    letter-spacing: 1px;
-    opacity: 0.7;
-}
-
-.clock-face {
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle at 60% 40%, #333 70%, #222 100%);
-    border-radius: 50%;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 8px #fff2 inset;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-}
-
-.clock-hand {
-    position: absolute;
-    width: 70px;
-    height: 8px;
-    background: #b39ddb;
-    border-radius: 4px;
-    left: 50%;
-    top: 50%;
-    transform-origin: 0 50%;
-    transform: rotate(-45deg) translate(-50%, -50%);
-    box-shadow: 0 2px 8px #b39ddb88;
-}
-
-.clock-time {
-    color: #fff;
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-    text-align: center;
-}
-
-.clock-time span {
-    font-size: 1rem;
-    font-weight: 400;
-    opacity: 0.7;
-    margin-left: 8px;
-}
-
-.clock-unlock {
-    color: #bdbdbd;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    text-align: center;
-    margin-top: 8px;
-}
-
-
+/* Responsive */
 @media (max-width: 900px) {
-    .side-by-side {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 20px;
+    .infographic-container {
+        padding: 10px;
     }
-    .clock-phone, .countdown-card {
-        min-width: 0;
-        width: 100%;
-        justify-content: center;
+    .main-title {
+        padding: 24px;
+        font-size: 1.5rem;
+    }
+    .info-card {
+        padding: 16px;
+        max-width: 98vw;
+    }
+    .countdown-card {
+        max-width: 98vw;
     }
 }
 
-@media (max-width: 768px) {
-    .infographic-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
+@media (max-width: 600px) {
     .main-title h1 {
         font-size: 2rem;
     }
-    .info-card {
-        padding: 20px;
+    .main-title {
+        padding: 16px;
     }
     .countdown-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .countdown-box {
+        font-size: 1rem;
+        padding: 10px 2px;
+    }
+    .info-card {
+        padding: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .countdown-container {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .countdown-container {
+        grid-template-columns: 1fr;
+    }
+    .countdown-box {
+        min-width: 0;
+        padding: 8px 2px;
+    }
+    .main-title h1 {
+        font-size: 1.3rem;
     }
 }
