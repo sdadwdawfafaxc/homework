@@ -41,79 +41,6 @@ function updateCurrentTime() {
     document.getElementById('currentTime').textContent = formatter.format(now);
 }
 
-// Music Controls
-const audio1 = document.getElementById('birthdayAudio1');
-const audio2 = document.getElementById('birthdayAudio2');
-const audio3 = document.getElementById('birthdayAudio3');
-const playBtn1 = document.getElementById('playBtn1');
-const playBtn2 = document.getElementById('playBtn2');
-const playBtn3 = document.getElementById('playBtn3');
-const lowVolumeBtn = document.getElementById('lowVolume');
-const normalVolumeBtn = document.getElementById('normalVolume');
-const highVolumeBtn = document.getElementById('highVolume');
-let currentAudio = null;
-
-// Set default volume
-[audio1, audio2, audio3].forEach(audio => { if(audio) audio.volume = 0.7; });
-
-function stopAllAudio() {
-    [audio1, audio2, audio3].forEach(audio => {
-        if(audio) {
-            audio.pause();
-            audio.currentTime = 0;
-        }
-    });
-    [playBtn1, playBtn2, playBtn3].forEach(btn => {
-        if(btn) btn.textContent = btn.getAttribute('data-label') || btn.textContent;
-    });
-    currentAudio = null;
-}
-
-function handlePlayPause(audio, button, songName) {
-    if (currentAudio && currentAudio !== audio) {
-        stopAllAudio();
-    }
-    if (audio.paused) {
-        audio.play().then(() => {
-            button.textContent = `⏸️ หยุด${songName}`;
-            currentAudio = audio;
-        }).catch(error => {
-            alert(`กรุณาใส่ไฟล์ ${songName.toLowerCase().replace('เพลงที่ ', 'song')}.mp3 ในโฟลเดอร์เดียวกัน`);
-        });
-    } else {
-        audio.pause();
-        button.textContent = button.getAttribute('data-label') || `▶️ เล่น${songName}`;
-        currentAudio = null;
-    }
-}
-
-if(playBtn1) playBtn1.addEventListener('click', () => handlePlayPause(audio1, playBtn1, 'เพลงที่ 1'));
-if(playBtn2) playBtn2.addEventListener('click', () => handlePlayPause(audio2, playBtn2, 'เพลงที่ 2'));
-if(playBtn3) playBtn3.addEventListener('click', () => handlePlayPause(audio3, playBtn3, 'เพลงที่ 3'));
-
-if(lowVolumeBtn) lowVolumeBtn.addEventListener('click', () => {
-    [audio1, audio2, audio3].forEach(audio => { if(audio) audio.volume = 0.3; });
-});
-if(normalVolumeBtn) normalVolumeBtn.addEventListener('click', () => {
-    [audio1, audio2, audio3].forEach(audio => { if(audio) audio.volume = 0.7; });
-});
-if(highVolumeBtn) highVolumeBtn.addEventListener('click', () => {
-    [audio1, audio2, audio3].forEach(audio => { if(audio) audio.volume = 1.0; });
-});
-
-if(audio1) audio1.addEventListener('ended', () => {
-    playBtn1.textContent = playBtn1.getAttribute('data-label') || '🎤 เพลงที่ 1';
-    currentAudio = null;
-});
-if(audio2) audio2.addEventListener('ended', () => {
-    playBtn2.textContent = playBtn2.getAttribute('data-label') || '🎶 เพลงที่ 2';
-    currentAudio = null;
-});
-if(audio3) audio3.addEventListener('ended', () => {
-    playBtn3.textContent = playBtn3.getAttribute('data-label') || '🎵 เพลงที่ 3';
-    currentAudio = null;
-});
-
 // Neumorphic Clock
 function updateNeumorphicClock() {
     const now = new Date();
@@ -166,10 +93,46 @@ function updateFormAccess() {
     }
 }
 
+// Special messages
+const birthdayMessage = "วันเกิดเธอปีนี้ ขอให้มีความสุขมากๆ พบเจอแต่สิ่งดีๆ สมหวังกับทุกสิ่ง ที่เธอปรารถนา ไม่มีเรื่องอะไรที่ทำให้ต้องทุกข์ใจ มีแต่ความสุข ความสดใสในทุกๆ วันนะ 🌸✨";
+const normalMessage = "ขอให้ทุกวันของเธอเต็มไปด้วยกำลังใจและรอยยิ้ม แม้ยังไม่ถึงวันเกิด แต่ก็ขอให้มีความสุขในทุกวันนะ 😊";
+const normalTitle = "ขอให้ปีนี้เต็มไปด้วยรอยยิ้ม ความสุข และความรัก";
+const birthdayTitle = "สุขสันต์วันเกิดนะคนเก่ง 💖";
+
+// เปลี่ยนข้อความพิเศษและหัวข้อหลักตามวันที่
+function updateSpecialMessage() {
+    const msgEl = document.getElementById('specialMessage');
+    const titleEl = document.querySelector('.main-title h1');
+    const subtitleEl = document.querySelector('.main-title .subtitle');
+    const now = new Date();
+    const isBirthday = now.getDate() === 27 && now.getMonth() === 8; // กันยายน = 8
+
+    if (msgEl) {
+        msgEl.textContent = isBirthday ? birthdayMessage : normalMessage;
+    }
+    if (titleEl) {
+        titleEl.textContent = isBirthday ? birthdayTitle : "ข้อความนี้ยังไม่ใช่ข้อความจริง";
+    }
+    if (subtitleEl) {
+        subtitleEl.textContent = isBirthday ? "" : normalTitle;
+    }
+}
+
 setInterval(updateCountdown, 1000);
 setInterval(updateCurrentTime, 1000);
+setInterval(updateSpecialMessage, 1000);
 window.addEventListener('load', () => {
     updateCountdown();
     updateCurrentTime();
     updateFormAccess();
+    updateSpecialMessage();
+
+    // Hide loading overlay with animation
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) {
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 700);
+    }
 });
