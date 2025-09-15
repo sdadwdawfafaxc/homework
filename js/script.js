@@ -71,7 +71,7 @@ function updateNeumorphicClock() {
     const seconds = now.getSeconds();
 
     // Analog hand (minute-based)
-    const deg = ((hours % 12) * 30) + (minutes * 0.5) - 90;
+    const deg = ((hours % 12) * 30) + (minutes * 0.5) - 80;
     const hand = document.getElementById('clock-hand');
     if (hand) hand.style.transform = `rotate(${deg}deg) translate(-50%, -50%)`;
 
@@ -94,9 +94,11 @@ updateNeumorphicClock();
 // Lock special form button except 27 September
 function updateFormAccess() {
     const btn = document.getElementById('specialFormBtn');
+    const btn1 = document.getElementById('f1');
     const lockMsg = document.getElementById('formLockMsg');
+    const lockMsg1 = document.getElementById('f2')
     const now = new Date();
-    const isBirthday = now.getDate() === 27 && now.getMonth() === 8; // กันยายน = 8
+    const isBirthday = now.getDate() === 27  && now.getMonth() === 8; // กันยายน = 8
 
     if (!isBirthday) {
         btn.classList.add('disabled');
@@ -114,6 +116,28 @@ function updateFormAccess() {
         lockMsg.style.display = 'none';
     }
 }
+
+// Age calculation
+function updateAge() {
+    // กำหนดวันเกิด (ปีที่ต้องการ เช่น 2010)
+    const birthYear = 2010; // เปลี่ยนเป็นปีเกิดจริง
+    const birthMonth = 8;   // กันยายน = 8
+    const birthDay = 27;
+
+    const now = new Date();
+    let age = now.getFullYear() - birthYear;
+    // ถ้ายังไม่ถึงวันเกิดปีนี้ ให้ลบอายุลง 1
+    if (
+        now.getMonth() < birthMonth ||
+        (now.getMonth() === birthMonth && now.getDate() < birthDay)
+    ) {
+        age--;
+    }
+    document.getElementById('ageValue').textContent = age;
+}
+
+//age calculation on load
+updateAge();
 
 // Special messages
 const birthdayMessage = "วันเกิดเธอปีนี้ ขอให้มีความสุขมากๆ พบเจอแต่สิ่งดีๆ สมหวังกับทุกสิ่ง ที่เธอปรารถนา ไม่มีเรื่องอะไรที่ทำให้ต้องทุกข์ใจ มีแต่ความสุข ความสดใสในทุกๆ วันนะ 🌸✨";
@@ -143,11 +167,13 @@ function updateSpecialMessage() {
 setInterval(updateCountdown, 1000);
 setInterval(updateCurrentTime, 1000);
 setInterval(updateSpecialMessage, 1000);
+setInterval(updateAge, 1000);
 window.addEventListener('load', () => {
     updateCountdown();
     updateCurrentTime();
     updateFormAccess();
     updateSpecialMessage();
+    updateAge();
 
     // Hide loading overlay with animation
     const overlay = document.getElementById('loading-overlay');
@@ -155,6 +181,86 @@ window.addEventListener('load', () => {
         overlay.style.opacity = '0';
         setTimeout(() => {
             overlay.style.display = 'none';
+
+            // หลังจาก loading overlay หายแล้ว ค่อยเช็ควันเกิดและแสดงเอฟเฟกต์
+            checkBirthday();
         }, 700);
+    } else {
+        // ถ้าไม่มี overlay ให้เช็ควันเกิดทันที
+        checkBirthday();
     }
+});
+
+// Theme mode (ก่อนถึงเวลา = ขาวดำ, ถึงเวลา = ปกติ)
+function updateTheme() {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const birthday = new Date(currentYear, 8, 27); // 27 กันยายน
+
+    // ถ้าเลยวันเกิดปีนี้ไปแล้ว ให้ถือว่าเป็นโหมดปกติ
+    const isBeforeBirthday = now < birthday;
+
+    if (isBeforeBirthday) {
+        // โหมดขาวดำ
+        document.body.classList.add('grayscale-mode');
+        document.body.classList.remove('normal-mode');
+    } else {
+        // โหมดปกติ
+        document.body.classList.remove('grayscale-mode');
+        document.body.classList.add('normal-mode');
+    }
+}
+
+// เรียกใช้งานทุก ๆ 1 วิ
+setInterval(updateTheme, 1000);
+updateTheme();
+
+
+
+// เก็บสถานะว่าแสดง Happy Birthday แล้วหรือยัง
+let hasCelebrated = false;
+
+function checkBirthday() {
+    const now = new Date();
+    const isBirthday = (now.getDate() === 27 && now.getMonth() === 8); // ก.ย. = 8
+
+    if (isBirthday) {
+        document.body.classList.remove('grayscale-mode');
+        document.body.classList.add('normal-mode');
+
+        if (!hasCelebrated) {
+            playBirthdayEffect();
+            hasCelebrated = true;
+        }
+    } else {
+        document.body.classList.add('grayscale-mode');
+        document.body.classList.remove('normal-mode');
+    }
+}
+
+// ฟังก์ชันแสดงเอฟเฟกต์ Happy Birthday
+function playBirthdayEffect() {
+    // ข้อความ Happy Birthday
+    const msg = document.createElement('div');
+    msg.className = 'birthday-effect';
+    msg.innerHTML = '🎉 สุขสันต์วันเกิดนะคนเก่ง! 🎂<br>ขอให้มีความสุขมากๆ💖';
+    document.body.appendChild(msg);
+
+    // โปรย confetti
+    if (typeof confetti === "function") {
+        confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+
+        // ยิงเพิ่มอีก 3 รอบ
+        let count = 0;
+        const interval = setInterval(() => {
+            confetti({ particleCount: 270, spread: 120, origin: { y: 0.6 } });
+            count++;
+            if (count > 2) clearInterval(interval);
+        }, 1000);
+    }
+}
+
+// เมื่อโหลดเว็บเสร็จ
+window.addEventListener('load', () => {
+    checkBirthday();
 });

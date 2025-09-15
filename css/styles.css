@@ -231,3 +231,70 @@ body {
         font-size: 1.3rem;
     }
 }
+
+/* โหมดขาวดำ */
+.grayscale-mode {
+    filter: grayscale(85%);
+    transition: filter 0.5s ease;
+}
+
+/* โหมดปกติ */
+.normal-mode {
+    filter: none;
+    transition: filter 0.5s ease;
+}
+
+
+/* ทำให้ background อยู่ด้านหลัง */
+#animated-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(270deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+    background-size: 800% 800%;
+    animation: gradientShift 20s ease infinite;
+    z-index: -1;
+}
+
+/* เอฟเฟกต์ไล่สีพื้นหลัง */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* โหมดขาวดำ */
+.grayscale-mode {
+    filter: grayscale(100%);
+    background: #3f454e; /* เปลี่ยนพื้นหลังเป็นสีทึบในโหมดขาวดำ */
+    transition: filter 0.5s ease;
+}
+
+/* โหมดปกติ */
+.normal-mode {
+    filter: none;
+    transition: filter 0.5s ease;
+}
+
+/* ข้อความ Happy Birthday */
+.birthday-effect {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff4081;
+    text-align: center;
+    animation: popIn 1s ease-out, fadeOut 6s ease-in forwards;
+    z-index: 9999;
+}
+
+@keyframes popIn {
+    0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+@keyframes fadeOut {
+    0%, 70% { opacity: 1; }
+    100% { opacity: 0; }
+}
