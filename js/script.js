@@ -24,6 +24,28 @@ function updateCountdown() {
     }
 }
 
+// Reset countdown (if needed)
+function resetCountdown() {
+    document.getElementById('days').textContent = '0';
+    document.getElementById('hours').textContent = '0';
+    document.getElementById('minutes').textContent = '0';
+    document.getElementById('seconds').textContent = '0';
+    document.getElementById('countdown').style.display = 'none';
+    document.getElementById('birthdayMessage').style.display = 'block';
+}
+
+// Toggle countdown visibility
+function toggleCountdown() {
+    const countdown = document.getElementById('countdown');
+    if (countdown.style.display === 'none') {
+        countdown.style.display = 'grid';
+        document.getElementById('birthdayMessage').style.display = 'none';
+    } else {
+        countdown.style.display = 'none';
+        document.getElementById('birthdayMessage').style.display = 'block';
+    }
+}
+
 // Current Time Display
 function updateCurrentTime() {
     const now = new Date();
@@ -96,7 +118,7 @@ function updateFormAccess() {
 // Special messages
 const birthdayMessage = "วันเกิดเธอปีนี้ ขอให้มีความสุขมากๆ พบเจอแต่สิ่งดีๆ สมหวังกับทุกสิ่ง ที่เธอปรารถนา ไม่มีเรื่องอะไรที่ทำให้ต้องทุกข์ใจ มีแต่ความสุข ความสดใสในทุกๆ วันนะ 🌸✨";
 const normalMessage = "ข้อความนี้ยังไม่ใช่ข้อความจริง 😊";
-const normalTitle = "ขอให้ปีนี้เต็มไปด้วยรอยยิ้ม ความสุข และความรัก";
+const normalTitle = "";
 const birthdayTitle = "สุขสันต์วันเกิดนะคนเก่ง 💖";
 
 // เปลี่ยนข้อความพิเศษและหัวข้อหลักตามวันที่
@@ -114,7 +136,7 @@ function updateSpecialMessage() {
         titleEl.textContent = isBirthday ? birthdayTitle : "ข้อความนี้ยังไม่ใช่ข้อความจริง";
     }
     if (subtitleEl) {
-        subtitleEl.textContent = isBirthday ? "" : normalTitle;
+        subtitleEl.textContent = isBirthday ? "ขอให้ปีนี้เต็มไปด้วยรอยยิ้ม ความสุข และความรัก" : normalTitle;
     }
 }
 
